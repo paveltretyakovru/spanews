@@ -1,5 +1,12 @@
 #content{ margin-top: 25px }
 
+#search-input{
+    width: 100%;
+    font-size: 30px;
+    padding: 15px;
+
+}
+
 .icon-preview {
     display: inline-block;
     padding: 10px;
@@ -21,3 +28,15 @@
 }
 .icon-preview:hover i { color: #4285f4; }
 .icon-preview:hover span { display: block; cursor: text; }
+
+.thumbnail {
+    position: relative;
+}
+
+.caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+}

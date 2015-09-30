@@ -6,6 +6,7 @@ define (require) ->
 	PostTemplate 	= require 'text!tmpls/post_content.tpl'
 
 	Collection 	= Backbone.Collection.extend()
+	Model 		= Backbone.Model.extend()
 
 	ItemView 	= Marionette.ItemView.extend
 		template : TemplateItem ,
@@ -30,15 +31,26 @@ define (require) ->
 		initialize : ->
 			console.log 'Init posts collection view' if @debug
 
-			# https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=путин
+			@model 		= new Model()
+			@collection = new Collection()
+
+			# Отслеживаем изменение параметра поиска
+			@model.on 'change:query' , @fetchData , this
+
+			@fetchData()
+
+		fetchData : ->
+			if not @model.get 'query'
+				@model.set 'query' , 'путин'
 
 			$.ajax
-				url 	: 'https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=путин'
+				url 	: 'https://ajax.googleapis.com/ajax/services/search/news'
+				data 	: 
+					v 	: '1.0'
+					q	: @model.get 'query'
 				dataType: 'jsonp'
 			.done (data) =>
 				console.log 'Data loaded' , data.responseData.results if @debug
 				@collection.reset data.responseData.results
-
-			@collection = new Collection()
 
 	PostsCollectionView

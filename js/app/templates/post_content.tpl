@@ -7,12 +7,17 @@
 
 	<div class="row">
 		<div class="col-md-12">
-		<img alt="" src="<%= image.url %>" style="width:100%">
-		<h2><%= title %></h2>
+		<div class="thumbnail text-center">
+			<img alt="" src="<%= image.url %>" style="width:100%">
+			<div class="caption">
+				<h2><%= title %></h2>
+			</div>
+		</div>		
     		<p><%= content %></p>
 
-    		<h4>
-				<span class="label label-default"><%= publisher  %></span></h4><h4>
+    		<p><a href="<%= unescapedUrl %>">Продолжение в источнике</a></p>
+    		<p>Источник: <span class="label label-info"><%= publisher  %></span></p>
+    		<h4>				
 				<small style="font-family:courier,'new courier';" class="text-muted"><%= publishedDate %></small>
 			</h4>
 		</div>
