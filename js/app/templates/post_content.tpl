@@ -16,7 +16,7 @@
     		<p><%= content %></p>
 
     		<p><a href="<%= unescapedUrl %>">Продолжение в источнике</a></p>
-    		<p>Источник: <span class="label label-info"><%= publisher  %></span></p>
+    		<p>Источник: <span class="label label-default"><%= publisher  %></span></p>
     		<h4>				
 				<small style="font-family:courier,'new courier';" class="text-muted"><%= publishedDate %></small>
 			</h4>

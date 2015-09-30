@@ -6,7 +6,9 @@ define (require) ->
 	PostTemplate 	= require 'text!tmpls/post_content.tpl'
 
 	Collection 	= Backbone.Collection.extend()
-	Model 		= Backbone.Model.extend()
+	Model 		= Backbone.Model.extend
+		defaults	: 
+			query	: 'google'
 
 	ItemView 	= Marionette.ItemView.extend
 		template : TemplateItem ,
@@ -19,9 +21,7 @@ define (require) ->
 
 		showPostContent 	: (e) ->			
 			$('#region-text').html( _.template( PostTemplate )( @model.toJSON() ) );
-
 			$('#content').carousel 'next'
-
 			e.preventDefault()
 
 	PostsCollectionView = Marionette.CollectionView.extend
@@ -35,22 +35,33 @@ define (require) ->
 			@collection = new Collection()
 
 			# Отслеживаем изменение параметра поиска
-			@model.on 'change:query' , @fetchData , this
+			@model.on 'change:query' , @fetchData , @			
 
-			@fetchData()
+			@fetchData()	
 
 		fetchData : ->
-			if not @model.get 'query'
-				@model.set 'query' , 'путин'
+			no_image_url = 'http://theslogsweep.com/wp-content/themes/mightymag/images/no_thumb.png'
 
-			$.ajax
-				url 	: 'https://ajax.googleapis.com/ajax/services/search/news'
-				data 	: 
-					v 	: '1.0'
-					q	: @model.get 'query'
-				dataType: 'jsonp'
-			.done (data) =>
-				console.log 'Data loaded' , data.responseData.results if @debug
-				@collection.reset data.responseData.results
+			if not @model.get 'query'
+				@model.set 'query' , ''
+			else
+				$.ajax
+					url 	: 'https://ajax.googleapis.com/ajax/services/search/news'
+					data 	: 
+						v 	: '1.0'
+						q	: @model.get 'query'
+					dataType: 'jsonp'
+				.done (data) =>
+					Results = data.responseData.results
+					console.log 'Data loaded' , Results if @debug
+
+					# Предотвращаем js ошибку, если статья не содежит изображения
+					for post in Results
+						if not post.image
+							post.image = {}
+							post.image.url = no_image_url
+
+					@collection.reset data.responseData.results	
+
 
 	PostsCollectionView

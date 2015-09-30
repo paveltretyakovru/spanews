@@ -24,16 +24,28 @@ define(function(require) {
       return this.on('render', this.afterRender, this);
     },
     afterRender: function() {
-      this.regionPosts.show(new PostsView());
-      return $('#content').carousel({
+      this.postsView = new PostsView();
+      this.regionPosts.show(this.postsView);
+      $('#content').carousel({
         interval: false
       });
+      return $('body').on('keyup', '#search-input', (function(_this) {
+        return function() {
+          return _this.changedInput();
+        };
+      })(this));
     },
     showPosts: function(e) {
       if (this.debug) {
         console.log('Show posts button');
       }
       return $('#content').carousel('prev');
+    },
+    changedInput: function() {
+      if (this.debug) {
+        console.log('Новый поисковый запрос', $('#search-input').val());
+      }
+      return this.postsView.model.set('query', $('#search-input').val());
     }
   });
 });

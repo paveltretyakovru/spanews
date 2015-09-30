@@ -10,7 +10,7 @@
 				<div class="col-xs-9">					
 					<h4>
 						<span class="label label-default"><%= publisher  %></span></h4><h4>
-						<small style="font-family:courier,'new courier';" class="text-muted"><%= publishedDate %>  • <a href="#" class="text-mute show-post-content">Читать  далее</a></small>
+						<small style="font-family:courier,'new courier';" class="text-muted"><%= publishedDate %>  • <a href="#" class="text-mute show-post-content">Подробнее</a></small>
 					</h4>
 				</div>
 				<div class="col-xs-3"></div>

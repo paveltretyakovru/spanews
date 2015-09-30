@@ -10,7 +10,7 @@ define (require) ->
 		template	: LayoutTemplate
 
 		ui			: 
-			'buttonShowPosts' : '.show-posts'
+			'buttonShowPosts' 	: '.show-posts'
 
 		events 		:
 			'click @ui.buttonShowPosts' : 'showPosts'
@@ -24,12 +24,21 @@ define (require) ->
 			@on 'render' , @afterRender , this
 
 		afterRender : ->
-			@regionPosts.show new PostsView()
+			@postsView = new PostsView()
+
+			@regionPosts.show @postsView
 
 			# Init page carousel
 			$('#content').carousel interval : false
+
+			# Отслеживаем ввод нового поискового запроса
+			$('body').on 'keyup' , '#search-input' , => @changedInput()
 
 		showPosts 	: (e) ->
 			console.log 'Show posts button' if @debug
 
 			$('#content').carousel 'prev'
+
+		changedInput : ->
+			console.log 'Новый поисковый запрос' , $('#search-input').val() if @debug
+			@postsView.model.set('query' , $('#search-input').val())

@@ -6,7 +6,11 @@ define(function(require) {
   TemplateItem = require('text!tmpls/post_item.tpl');
   PostTemplate = require('text!tmpls/post_content.tpl');
   Collection = Backbone.Collection.extend();
-  Model = Backbone.Model.extend();
+  Model = Backbone.Model.extend({
+    defaults: {
+      query: 'google'
+    }
+  });
   ItemView = Marionette.ItemView.extend({
     template: TemplateItem,
     ui: {
@@ -34,24 +38,36 @@ define(function(require) {
       return this.fetchData();
     },
     fetchData: function() {
+      var no_image_url;
+      no_image_url = 'http://theslogsweep.com/wp-content/themes/mightymag/images/no_thumb.png';
       if (!this.model.get('query')) {
-        this.model.set('query', 'путин');
+        return this.model.set('query', '');
+      } else {
+        return $.ajax({
+          url: 'https://ajax.googleapis.com/ajax/services/search/news',
+          data: {
+            v: '1.0',
+            q: this.model.get('query')
+          },
+          dataType: 'jsonp'
+        }).done((function(_this) {
+          return function(data) {
+            var Results, i, len, post;
+            Results = data.responseData.results;
+            if (_this.debug) {
+              console.log('Data loaded', Results);
+            }
+            for (i = 0, len = Results.length; i < len; i++) {
+              post = Results[i];
+              if (!post.image) {
+                post.image = {};
+                post.image.url = no_image_url;
+              }
+            }
+            return _this.collection.reset(data.responseData.results);
+          };
+        })(this));
       }
-      return $.ajax({
-        url: 'https://ajax.googleapis.com/ajax/services/search/news',
-        data: {
-          v: '1.0',
-          q: this.model.get('query')
-        },
-        dataType: 'jsonp'
-      }).done((function(_this) {
-        return function(data) {
-          if (_this.debug) {
-            console.log('Data loaded', data.responseData.results);
-          }
-          return _this.collection.reset(data.responseData.results);
-        };
-      })(this));
     }
   });
   return PostsCollectionView;
