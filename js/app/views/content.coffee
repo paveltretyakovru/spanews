@@ -40,5 +40,6 @@ define (require) ->
 			$('#content').carousel 'prev'
 
 		changedInput : ->
-			console.log 'Новый поисковый запрос' , $('#search-input').val() if @debug
+			console.log 'Новый поисковый запрос' , $('#search-input').val() if @debug			
 			@postsView.model.set('query' , $('#search-input').val())
+			$('#content').carousel 1

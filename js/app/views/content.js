@@ -45,7 +45,8 @@ define(function(require) {
       if (this.debug) {
         console.log('Новый поисковый запрос', $('#search-input').val());
       }
-      return this.postsView.model.set('query', $('#search-input').val());
+      this.postsView.model.set('query', $('#search-input').val());
+      return $('#content').carousel(1);
     }
   });
 });

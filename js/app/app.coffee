@@ -18,7 +18,7 @@ define (require) ->
 
 		initialize : ->
 			console.log 'Initialize marionette application' if @debug
-
+			
 		# Начальный метод
 		preload : ->
 			console.log 'Completing preload function' if @debug

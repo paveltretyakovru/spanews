@@ -2,7 +2,6 @@ if (typeof DEBUG === 'undefined') DEBUG = true;
 var host = "";
 
 requirejs.config({
-    'baseUrl'   : '/spanews',
     'paths'     : {
         // CORE
         'requirejs'             : 'bower_components/requirejs/require'                                      ,
