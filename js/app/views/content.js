@@ -13,18 +13,20 @@ define(function(require) {
     debug: true,
     template: LayoutTemplate,
     regions: {
-      regionText: '#region-text'
+      regionText: '#region-text',
+      regionPosts: '#region-posts'
     },
     initialize: function() {
       if (this.debug) {
-        console.log('Initialize content Layout', LayoutTemplate);
+        console.log('Initialize content Layout');
       }
       this.model = new ContentModel();
       this.model.set('test', 'Google test');
       return this.on('render', this.afterRender, this);
     },
     afterRender: function() {
-      return this.regionText.show(new TextView());
+      this.regionText.show(new TextView());
+      return this.regionPosts.show(new PostsView());
     }
   });
 });

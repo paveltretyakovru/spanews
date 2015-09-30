@@ -23,17 +23,7 @@ define(function(require) {
       if (this.debug) {
         console.log('Completing preload function');
       }
-      this.regionContainer.show(new ContentView());
-      return $.ajax({
-        url: 'https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=путин',
-        dataType: 'jsonp'
-      }).done((function(_this) {
-        return function(data) {
-          if (_this.debug) {
-            return console.log('Data loaded', data);
-          }
-        };
-      })(this));
+      return this.regionContainer.show(new ContentView());
     }
   });
   app.addInitializer(function(options) {

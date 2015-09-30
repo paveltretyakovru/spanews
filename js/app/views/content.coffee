@@ -17,10 +17,11 @@ define (require) ->
 		template	: LayoutTemplate
 
 		regions 	:
-			regionText : '#region-text'
+			regionText 	: '#region-text'
+			regionPosts	: '#region-posts'
 
 		initialize 	: ->
-			console.log 'Initialize content Layout' , LayoutTemplate if @debug
+			console.log 'Initialize content Layout' if @debug
 
 			@model = new ContentModel()
 			@model.set 'test' , 'Google test'
@@ -28,4 +29,5 @@ define (require) ->
 			@on 'render' , @afterRender , this
 
 		afterRender : ->
-			@regionText.show new TextView()
+			@regionText.show  new TextView()
+			@regionPosts.show new PostsView()

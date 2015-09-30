@@ -20,13 +20,7 @@ define (require) ->
 		# Начальный метод
 		preload : ->
 			console.log 'Completing preload function' if @debug
-			@regionContainer.show new ContentView()
-
-			$.ajax
-				url 	: 'https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=путин'
-				dataType: 'jsonp'
-			.done (data) =>
-				console.log 'Data loaded' , data if @debug
+			@regionContainer.show new ContentView()			
 
 	app.addInitializer (options) -> @preload()
 

@@ -1,7 +1,7 @@
-<p>
-	Require template
-
-	<div id="region-text">
+<div id="region-text">
 		
-	</div>
-</p>
+</div>
+
+<div id="region-posts">
+	
+</div>
