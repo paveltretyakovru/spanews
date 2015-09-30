@@ -13,6 +13,7 @@ requirejs.config({
         'backbone.babysitter'   : 'bower_components/backbone.babysitter/lib/backbone.babysitter.min'        ,
         'backbone.wreqr'        : 'bower_components/backbone.wreqr/lib/backbone.wreqr.min'                  ,
         'marionette'            : 'bower_components/backbone.marionette/lib/core/backbone.marionette.min'   ,
+        'bootstrap'             : 'bower_components/bootstrap/dist/js/bootstrap.min'                        ,
         
         // PATHS
         'app'           : host + 'js/app'           ,

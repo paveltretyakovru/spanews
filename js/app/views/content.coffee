@@ -3,31 +3,33 @@ define (require) ->
 
 	Marionette 		= require 'marionette'
 	LayoutTemplate 	= require 'text!tmpls/content.tpl'
-	PostsView		= require 'views/posts'
-
-	ContentModel	= Backbone.Model.extend()
-
-	TextView		= Marionette.ItemView.extend
-		template : 'text view template'
-
-
+	PostsView		= require 'views/posts'	
 
 	Marionette.LayoutView.extend
 		debug 		: true
 		template	: LayoutTemplate
 
+		ui			: 
+			'buttonShowPosts' : '.show-posts'
+
+		events 		:
+			'click @ui.buttonShowPosts' : 'showPosts'
+
 		regions 	:
-			regionText 	: '#region-text'
-			regionPosts	: '#region-posts'
+			regionPosts	: '#region-posts'		
 
 		initialize 	: ->
 			console.log 'Initialize content Layout' if @debug
 
-			@model = new ContentModel()
-			@model.set 'test' , 'Google test'
-
 			@on 'render' , @afterRender , this
 
 		afterRender : ->
-			@regionText.show  new TextView()
 			@regionPosts.show new PostsView()
+
+			# Init page carousel
+			$('#content').carousel interval : false
+
+		showPosts 	: (e) ->
+			console.log 'Show posts button' if @debug
+
+			$('#content').carousel 'prev'

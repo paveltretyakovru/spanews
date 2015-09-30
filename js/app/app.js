@@ -7,6 +7,7 @@
 define(function(require) {
   'use strict';
   var ContentView, Marionette, app;
+  require('bootstrap');
   Marionette = require('marionette');
   ContentView = require('views/content');
   app = new Marionette.Application({
@@ -30,9 +31,7 @@ define(function(require) {
     return this.preload();
   });
   Marionette.Renderer.render = function(template, data) {
-    var tmpl;
-    tmpl = _.template(template);
-    return tmpl(data);
+    return _.template(template)(data);
   };
   return app;
 });

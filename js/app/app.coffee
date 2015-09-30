@@ -5,6 +5,8 @@
 define (require) ->
 	'use strict'
 
+	require 'bootstrap'
+
 	Marionette 	= require 'marionette'
 	ContentView = require 'views/content'
 
@@ -20,12 +22,11 @@ define (require) ->
 		# Начальный метод
 		preload : ->
 			console.log 'Completing preload function' if @debug
-			@regionContainer.show new ContentView()			
+			@regionContainer.show new ContentView()	
 
 	app.addInitializer (options) -> @preload()
 
 	Marionette.Renderer.render = (template, data) ->
-        tmpl = _.template template
-        tmpl data
+        _.template(template)(data)
 
 	app

@@ -3,11 +3,25 @@ define (require) ->
 
 	Marionette 		= require 'marionette'
 	TemplateItem 	= require 'text!tmpls/post_item.tpl'
+	PostTemplate 	= require 'text!tmpls/post_content.tpl'
 
 	Collection 	= Backbone.Collection.extend()
 
 	ItemView 	= Marionette.ItemView.extend
-		template : TemplateItem
+		template : TemplateItem ,
+
+		ui			:
+			'linksShowPost'	: '.show-post-content'
+
+		events		:
+			'click @ui.linksShowPost'	: 'showPostContent'
+
+		showPostContent 	: (e) ->			
+			$('#region-text').html( _.template( PostTemplate )( @model.toJSON() ) );
+
+			$('#content').carousel 'next'
+
+			e.preventDefault()
 
 	PostsCollectionView = Marionette.CollectionView.extend
 		debug		: true

@@ -1,0 +1,23 @@
+#content{ margin-top: 25px }
+
+.icon-preview {
+    display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    background: #D5D5D5;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.icon-preview span {
+    display: none;
+    position: absolute;
+    background: black;
+    color: #EEE;
+    padding: 5px 8px;
+    font-size: 15px;
+    font-family: Roboto;
+    border-radius: 2px;
+    z-index: 10;
+}
+.icon-preview:hover i { color: #4285f4; }
+.icon-preview:hover span { display: block; cursor: text; }
